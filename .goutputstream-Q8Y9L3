@@ -1,0 +1,13 @@
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.*;
+import java.io.*;
+
+public class dbconnection{
+			 static final String url= "jdbc:mysql://localhost:3306/students_databsse";
+			 static final String uname="carline";
+			 static final String password="";
+	public static Connection dbcn() throws SQException{
+	        return DriverManager.getConnection(url,uname,password);
+	}
+}
