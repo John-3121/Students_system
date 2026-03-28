@@ -66,26 +66,18 @@ public class studentsDAO {
 					}catch(Exception e){
 							System.out.println(e.getMessage());
 						}
-			
 			}
-			
-		public void search_student(String student_name){
-				try (Connection con = dbconnection.dbcn()){
-						String query = "SELECT * FROM students where name = ?";
-						PreparedStatement pst = con.prepareStatement(query);
-						pst.setString(1,student_name);
-						//----------
-						//Statement st = con.createStatement();
-						ResultSet rs = pst.executeQuery();
-	
-						while(rs.next()){
-							 System.out.println(rs.getInt(1) + "."+ rs.getString(2) +" "+"Age:"+ rs.getInt(3) +" "+"Course: "+ rs.getString(4));
-								System.out.println("---------------------");
-							}
-					
-					}
-					catch(Exception e){
-						System.out.println(e.getMessage());
+		
+		public void search_student(String st_name){
+				try(Connection con = dbconnection.dbcn()){
+					String query = "SSELECT * FROM students WHERE name="+st_name;	
+					Statement st = con.createStatement();
+					ResultSet rs = st.executeQuery(st);
+					rs.next();
+					System.out.println(rs.getString(1));
+					}catch(Exception e){
+						System.out.println(rs.getInt(1) + "."+ rs.getString(2) +" "+"Age:"+ rs.getInt(3) +" "+"Course: "+ rs.getString(4));
+							
 						}
 			
 			
