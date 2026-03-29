@@ -6,24 +6,31 @@ This is a simple Java JDBC project that connects to a MySQL database and perform
 
 Features
 
--Add student
--View all students
--Remove Student
--Technologies Used
+- Add student
+- View all students
 
-1.Java
-2.JDBC
-3.MySQL
+Technologies Used
+
+- Java
+- JDBC
+- MySQL
 
 Setup
 
--Clone the repository
--Create a MySQL database named "students_database"
--Create a table:
--CREATE TABLE students ( id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100), age INT, course VARCHAR(100) );
+1. Clone the repository
+2. Create a MySQL database named "students_database"
+3. Create a table:
 
--Update database credentials in "dbconnection.java"
--Run the program
+CREATE TABLE students (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  age INT,
+  course VARCHAR(100)
+);
+
+4. Update database credentials in "dbconnection.java"
+5. Run the program
+
 Notes
 
 Database credentials are not included for security reasons.
