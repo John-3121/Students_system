@@ -1,10 +1,11 @@
 import java.util.*;
 import java.sql.*;
-public class Admin extends User{
-	
-	public Admin(){}
-	
-	public void options(studentsDAO st_dao ,Scanner sn){
+public class Normal_user extends User{
+	public Normal_user(String email,String password){
+		super(email,password);
+	}
+	public Normal_user(){}
+		public void options(studentsDAO st_dao ,Scanner sn){
 			boolean exit = true;
 		while(exit){
 				System.out.println("1.Add student");
@@ -81,6 +82,8 @@ public class Admin extends User{
 			
 			}
 			
-			
-		}
-	}
+		
+     }
+
+	
+}

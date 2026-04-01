@@ -88,8 +88,60 @@ public class studentsDAO {
 						System.out.println(e.getMessage());
 						}
 			
-			
-			
 			}
+			public void Check_login_info(String email,String password){
+				 try(Connection con = dbconnection.dbcn()){
+							Scanner sc = new Scanner(System.in);
+							String query ="SELECT roles FROM Admin WHERE email = ? AND password =?";
+							PreparedStatement pst = con.prepareStatement(query);
+							Admin admin = new Admin();
+							Normal_user normal_user = new Normal_user();
+							
+							pst.setString(1,email);
+							pst.setString(2,password);
+							
+							ResultSet rs = pst.executeQuery();
+							int user_id;
+							if(rs.next()){
+								String roles = rs.getString("roles");
+								user_id = rs.getInt("id");
+							
+								if(roles.equals("admin")){
+									 System.out.println("Login successfully");
+									  admin.options(new studentsDAO(),sc);
+									
+								
+									}else if(roles.equals("Normal_user")){
+									
+										normal_user.options(new studentsDAO(),sc);
+									}
+								}
+								
+							System.out.println("Wrong name or password");
+							return user_id;s	
+							
+							
+					 
+				  }catch(Exception e){
+						 System.out.println(e.getMessage());
+						 }			 
+				}
+			
+		public void user_storeinf(String email,String password,String role){
+				 try(Connection con = dbconnection.dbcn()){
+							String query ="INSERT INTO Admin(email,password,roles) VALUES(?,?,?)";
+							PreparedStatement pst = con.prepareStatement(query);
+							pst.setString(1,email);
+							pst.setString(2,password);
+							pst.setString(3,role);
+							pst.executeUpdate();
+					 
+				  }catch(Exception e){
+						 System.out.println(e.getMessage());
+						 }			 
+		}
+		
+	
+		
 	}
 

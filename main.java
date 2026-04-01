@@ -1,88 +1,74 @@
 import java.util.Scanner;
 public class main{
-		 
+		 static String role;
+		 public static Scanner sn(){
+			 return new Scanner(System.in);
+			 }
+			 public static studentsDAO st_dao(){return new studentsDAO();}
 		 
 	public static void main(String[] args){
 		    boolean exit= true;
-		    studentsDAO st_dao = new studentsDAO();
-			Scanner sn = new Scanner(System.in);
-			System.out.println("Student system");
+		    studentsDAO st_dao = st_dao();
+			Scanner sn = sn();
 			
 			while(exit){
-				System.out.println("1.Add student");
-				System.out.println("2.View all student");
-				System.out.println("3.remove student");
-				System.out.println("4.Update student");
-				System.out.println("5.Search student");
-				System.out.println("6.exit");
-				int user_input = sn.nextInt();
-				sn.nextLine();
+				System.out.println("Welcome to Student record ssystem");
+			
+				System.out.println("1,Sign in");
+				System.out.println("2.Sign up");
+				int log = sn.nextInt();
 				
-				switch(user_input){
-					case 1:
-						try{
-							System.out.println("Enter name");
-							String name = sn.nextLine();
-							System.out.println("Enter age");
-							int age = sn.nextInt();
-							sn.nextLine();
-							System.out.println("Enter course");
-							String course = sn.nextLine();
-							st_dao.addStudent(new student(name,age,course));
-							System.out.println("Added sucessfully");
-							
-							}
-						catch(Exception e){
-								System.out.println(e.getMessage());
-							}
-						
-						break;
-					case 2:
-						try{
-							 st_dao.viewAllStudents();
-							}
-						catch(Exception e){
-							System.out.println(e.getMessage());
-							}
-						
-						break;
-					case 3:
-						System.out.println("Enter the student id you want to remove");
-						int student_id = sn.nextInt();
-						st_dao.remove_student(student_id);
+				if(log==1){sign_in();}
+				   else if(log == 2){sign_up();}
 					
-						break;
-					case 4:
-							System.out.println("Enter the id desired to update");
-							int id = sn.nextInt();
-							sn.nextLine();
-							System.out.println("Enter name");
-							String name = sn.nextLine();
-							System.out.println("Enter age");
-							int age = sn.nextInt();
-							sn.nextLine();
-							System.out.println("Enter course");
-							String course = sn.nextLine();
-							st_dao.update_student(id,new student(name,age,course));
-							System.out.println("Info updated sucessfully");
-							
-
-						break;
-					case 5:
-						System.out.println("search Student name");
-						String st_name = sn.nextLine();
-						st_dao.search_student(st_name);
-						break;
-					case 6:
-						exit=false;
-						System.out.println("bye");
-						break;
+			
+			
 					
-					}
-
-				
 				}
 	}
+		private static void sign_in(){
+			try{
+				  Scanner sn = sn();
+				      studentsDAO st_dao = st_dao();
+				System.out.println("Enter your email;");
+				String email = sn.nextLine();
+				System.out.println("Enter your password:");
+				String password = sn.nextLine();
+				st_dao.Check_login_info(email,password);
+			
+				
+				}
+				catch(Exception e){
+				}
+			}
+		private static void sign_up(){
+				try{
+				
+					studentsDAO st_dao = st_dao();
+					Scanner sn = sn();
+					System.out.println("Email");
+					String email = sn.nextLine();
+					System.out.println("Password");
+					String password = sn.nextLine();
+					System.out.println("1.Admin/n2.Normal_user");
+					int option = sn.nextInt();
+					
+					if(option == 1){
+						role = "admin";
+						st_dao.user_storeinf(email,password,role);
+							
+						}else if(option == 2){
+							role = "Normal_user";
+							st_dao.user_storeinf(email,password,role);
+							}
+					
+					}catch(Exception e){
+						System.out.println(e.getMessage());
+					}
+			
+				
+			
+			}
 	
 	
 	}
