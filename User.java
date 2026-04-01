@@ -16,7 +16,7 @@ import java.util.Scanner;
 		return password;
 		}
 		
-		public abstract void options(studentsDAO st_dao ,Scanner sn);
+		public abstract void options(studentsDAO st_dao ,Scanner sn,int user_id);
 	
 		
 	

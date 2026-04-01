@@ -8,13 +8,14 @@ import java.sql.*;
 public class studentsDAO {
 		
 		 		 
-		 public  void addStudent(student std) {
+		 public  void addStudent(student std,int user_id) {
 			 try(Connection con = dbconnection.dbcn()){
-					 String insert_query = "INSERT INTO students(name,age,course) VALUES(?,?,?)";
+					 String insert_query = "INSERT INTO students(name,age,course,user_id) VALUES(?,?,?,?)";
 				 	 PreparedStatement pstmt = con.prepareStatement(insert_query);
 				 	 pstmt.setString(1,std.name);
 				 	 pstmt.setInt(2,std.age);
 				 	 pstmt.setString(3,std.course);
+				 	 pstmt.setInt(4,user_id);
 				 	 pstmt.executeUpdate();
 					
 
@@ -25,11 +26,12 @@ public class studentsDAO {
 					
 			 }
 			 
-		public void viewAllStudents(){
+		public void viewAllStudents(int user_id){
 					try (Connection con = dbconnection.dbcn()){
-						String query = "SELECT * FROM students";
-						Statement st = con.createStatement();
-						ResultSet rs = st.executeQuery(query);
+						String query = "SELECT * FROM students WHERE user_id =?";
+						PreparedStatement pst = con.prepareStatement(query);
+						pst.setInt(1,user_id);
+						ResultSet rs = pst.executeQuery();
 						while(rs.next()){
 							 System.out.println(rs.getInt(1) + "."+ rs.getString(2) +" "+"Age:"+ rs.getInt(3) +" "+"Course: "+ rs.getString(4));
 								System.out.println("---------------------");
@@ -89,10 +91,11 @@ public class studentsDAO {
 						}
 			
 			}
-			public void Check_login_info(String email,String password){
+			public int Check_login_info(String email,String password){
+					int user_id =0;
 				 try(Connection con = dbconnection.dbcn()){
 							Scanner sc = new Scanner(System.in);
-							String query ="SELECT roles FROM Admin WHERE email = ? AND password =?";
+							String query ="SELECT roles,id FROM Admin WHERE email = ? AND password =?";
 							PreparedStatement pst = con.prepareStatement(query);
 							Admin admin = new Admin();
 							Normal_user normal_user = new Normal_user();
@@ -101,30 +104,28 @@ public class studentsDAO {
 							pst.setString(2,password);
 							
 							ResultSet rs = pst.executeQuery();
-							int user_id;
+							
 							if(rs.next()){
-								String roles = rs.getString("roles");
 								user_id = rs.getInt("id");
+								String roles = rs.getString("roles");
+							
 							
 								if(roles.equals("admin")){
 									 System.out.println("Login successfully");
-									  admin.options(new studentsDAO(),sc);
+									  admin.options(new studentsDAO(),sc,user_id);
 									
 								
 									}else if(roles.equals("Normal_user")){
 									
-										normal_user.options(new studentsDAO(),sc);
+										normal_user.options(new studentsDAO(),sc,user_id);
 									}
-								}
-								
-							System.out.println("Wrong name or password");
-							return user_id;s	
-							
-							
+											
+								}		
 					 
 				  }catch(Exception e){
 						 System.out.println(e.getMessage());
 						 }			 
+						 return user_id;
 				}
 			
 		public void user_storeinf(String email,String password,String role){

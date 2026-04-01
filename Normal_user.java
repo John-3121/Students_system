@@ -5,7 +5,7 @@ public class Normal_user extends User{
 		super(email,password);
 	}
 	public Normal_user(){}
-		public void options(studentsDAO st_dao ,Scanner sn){
+		public void options(studentsDAO st_dao ,Scanner sn,int user_id){
 			boolean exit = true;
 		while(exit){
 				System.out.println("1.Add student");
@@ -27,7 +27,7 @@ public class Normal_user extends User{
 							sn.nextLine();
 							System.out.println("Enter course");
 							String course = sn.nextLine();
-							st_dao.addStudent(new student(name,age,course));
+							st_dao.addStudent(new student(name,age,course),user_id);
 							System.out.println("Added sucessfully");
 							
 							}
@@ -35,10 +35,9 @@ public class Normal_user extends User{
 								System.out.println(e.getMessage());
 							}
 						
-						break;
 					case 2:
 						try{
-							 st_dao.viewAllStudents();
+							 st_dao.viewAllStudents(user_id);
 							}
 						catch(Exception e){
 							System.out.println(e.getMessage());

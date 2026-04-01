@@ -12,7 +12,7 @@ public class main{
 			Scanner sn = sn();
 			
 			while(exit){
-				System.out.println("Welcome to Student record ssystem");
+				System.out.println("Welcome to Student record system");
 			
 				System.out.println("1,Sign in");
 				System.out.println("2.Sign up");
@@ -52,7 +52,7 @@ public class main{
 					String password = sn.nextLine();
 					System.out.println("1.Admin/n2.Normal_user");
 					int option = sn.nextInt();
-					
+					s
 					if(option == 1){
 						role = "admin";
 						st_dao.user_storeinf(email,password,role);
