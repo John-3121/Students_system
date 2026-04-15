@@ -8,6 +8,9 @@ Features
 
 - Add student
 - View all students
+- remove student
+- search student
+- exit
 
 Technologies Used
 
