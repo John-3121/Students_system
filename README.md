@@ -10,6 +10,7 @@ Features
 - View all students
 - remove student
 - search student
+- update student
 - exit
 
 Technologies Used
@@ -29,6 +30,7 @@ CREATE TABLE students (
   name VARCHAR(100),
   age INT,
   course VARCHAR(100)
+  user_id INT
 );
 
 4. Update database credentials in "dbconnection.java"
